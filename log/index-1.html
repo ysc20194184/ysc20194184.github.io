@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo | log | Hexo</title>
+  <title>Hexo | python对省份json的二次编码和二次解码 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="/imgs/shortcut-icon.ico" type="image/x-icon">
 
@@ -18,7 +18,7 @@
   
   <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
   <script>
-    document.title = `Hexo | log`
+    document.title = `Hexo | python对省份json的二次编码和二次解码`
   </script>
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -183,7 +183,7 @@
   const ipt = document.querySelector('#search-input')
   const btn = document.querySelector('#search-btn')
   const layer = document.querySelector('#search-layer')
-  const posts = JSON.parse(`[{"title":"Hello World","path":"2022/09/07/hello-world/"}]`)
+  const posts = JSON.parse(`[{"title":"Hello World","path":"2022/09/07/hello-world/"},{"title":"Hello World","path":"2022/09/07/test/"}]`)
   ipt.addEventListener('keyup', e => {
     if (e.key === 'Enter') {
       handleSearch()
@@ -317,7 +317,7 @@
       </h5>
       <p class="main-left--subtitle">
         <span>文章数目：</span>
-        <span>1 篇</span>
+        <span>2 篇</span>
       </p>
       <p class="main-left--subtitle">
         <span>最近动态：</span>
@@ -361,7 +361,7 @@ pre:active {
 
 <div class="article-container">
   <div class="article">
-    <h1 class="article-title">log</h1>
+    <h1 class="article-title">python对省份json的二次编码和二次解码</h1>
     <div class="article-info">
       <div class="article-info--item">
         <div class="article-info--info">
@@ -373,7 +373,75 @@ pre:active {
       </div>
     </div>
     <article class="article-content">
-      
+      <hr>
+<p> #-<em>-coding:utf-8-</em>-<br>#@Time :2022&#x2F;4&#x2F;12 16:07<br>#@Author:shuaichao<br>#@File :.pywith open(‘static&#x2F;mock&#x2F;area&#x2F;110100.json’, ‘r’, encoding&#x3D;’GBK’)as fp:<br>        # json_data &#x3D; json.load(fp)<br>#@Software: PyCharm<br>import io<br>import json<br>import time</p>
+<p>from lxml.builder import unicode</p>
+<p>import utils<br>if <strong>name</strong> &#x3D;&#x3D; ‘<strong>main</strong>‘:</p>
+<pre><code>#  第一次解码，去掉字符串和转义字符
+with open(&#39;static/mock/province.json&#39;, &#39;r&#39;, encoding=&#39;GBK&#39;)as fp:
+    json_data = json.load(fp)
+    f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
+    f.write(json_data)
+    f.close()
+# 第二次解码，转中文
+    with open(&#39;static/mock/province.json&#39;, &#39;r&#39;, encoding=&#39;GBK&#39;)as fp:
+        json_data = json.load(fp)
+        type = json.dumps(json_data, ensure_ascii=False, indent=4, separators=(&#39;,&#39;, &#39;: &#39;))
+        f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
+        f.write(type)
+        f.close()
+        # 获得 省级疫情人数并填入
+        with open(&#39;static/mock/province.json&#39;, &#39;r&#39;, encoding=&#39;GBK&#39;)as fp:
+            json_data = json.load(fp)
+            res = utils.get_province()
+            list_city = []
+            list_num = []
+            for r in res:
+                # print(r[0])
+                # print(r[1])
+                list_city.append(r[0])
+                list_num.append(r[1])
+            list_city_json = []
+            # try:
+            area = json_data[&#39;msg&#39;]
+            for k, v in enumerate(area):
+                # print(v[&#39;province&#39;])
+                list_city_json.append(v[&#39;province&#39;])
+            for k, v in enumerate(list_city_json):
+                area1 = str(v).strip().replace(&quot;市&quot;, &quot;&quot;).replace(&quot;特别行政区&quot;,&quot;&quot;).replace(&quot;回族自治区&quot;,&quot;&quot;).replace(&quot;维吾尔自治区&quot;,&quot;&quot;).replace(&quot;壮族自治区&quot;,&quot;&quot;).replace(&quot;省&quot;,&quot;&quot;).replace(&quot;自治区&quot;,&quot;&quot;)
+                sign_privince = True
+                for m, n in enumerate(list_city):
+                    if area1 == n.strip():
+                        print(n)
+                        json_data[&#39;msg&#39;][k][&#39;num&#39;] = str(list_num[m])
+                        type = json.dumps(json_data, ensure_ascii=False, indent=4, separators=(&#39;,&#39;, &#39;: &#39;))
+                        f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
+                        f.write(type)
+                        f.close()
+                        sign_privince = False
+                    # else:
+                    #     if m==len(list_city)-1:
+                    #         json_data[&#39;msg&#39;][k][&#39;num&#39;] = str(0)
+                    #         type = json.dumps(json_data, ensure_ascii=False, indent=4, separators=(&#39;,&#39;, &#39;: &#39;))
+                    #         f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
+                    #         f.write(type)
+                    #         f.close()
+                if sign_privince:
+                    json_data[&#39;msg&#39;][k][&#39;num&#39;] = str(0)
+                    type = json.dumps(json_data, ensure_ascii=False, indent=4, separators=(&#39;,&#39;, &#39;: &#39;))
+                    f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
+                    f.write(type)
+                    f.close()
+            with open(&#39;static/mock/province.json&#39;, &#39;r&#39;, encoding=&#39;GBK&#39;)as fp:
+                json_data = json.load(fp)
+                type = json.dumps(json_data)
+                type1 = json.dumps(type)
+                f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
+                f.write(type1)
+                f.close()
+</code></pre>
+<hr>
+
     </article>
     
     <div class="read-nums">

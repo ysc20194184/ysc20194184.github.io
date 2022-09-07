@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo | log | Hexo</title>
+  <title>Hexo | 错误“Permission is not allowed” | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="shortcut icon" href="/imgs/shortcut-icon.ico" type="image/x-icon">
 
@@ -18,7 +18,7 @@
   
   <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
   <script>
-    document.title = `Hexo | log`
+    document.title = `Hexo | 错误“Permission is not allowed”`
   </script>
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -337,9 +337,7 @@
       <div id="main-container" class="main-container">
 
 
-  <!--  -->
-
-<style>
+  <style>
 pre::-webkit-scrollbar {
   width: 5px;
   height: 10px;
@@ -360,108 +358,92 @@ pre:active {
   background-color: rgb(81, 95, 116);
 }
 </style>
-<div class="log">
-  
-    <div class="log-item">
-      <h2 class="log-title">
-        <span>2022-09-07 22:32:17</span>
-        <span>星期三</span>
-      </h2>
-      <h1 class="log-main-title"><a href="/log/index-2.html">错误“Permission is not allowed”</a></h1>
-      <div class="log-wrapper false" style="max-height: 1000px;">
-        <article class="article-content"><hr>
+
+<div class="article-container">
+  <div class="article">
+    <h1 class="article-title">错误“Permission is not allowed”</h1>
+    <div class="article-info">
+      <div class="article-info--item">
+        <div class="article-info--info">
+          
+          
+          <p class="article-info--date">日期：2022-09-07 22:32:17</p>
+        </div>
+        <img src="/imgs/default-cover.webp" alt="" class="article-cover">
+      </div>
+    </div>
+    <article class="article-content">
+      <hr>
 <p>出错背景：<br>将本地文件通过xftp复制到服务器时出现</p>
 <p>解决方法：<br>文件夹的权限原因，在该文件夹所在的父文件夹下输入”chmod 777 xxx(文件夹名称)”；<br>如果还出现“operation not permitted”，就换成root用户即可 “su”,输入密码；<br>再重新执行”chmod 777 xxx”<br>————————————————<br>版权声明：本文为CSDN博主「余三二」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40626699/article/details/89359524">https://blog.csdn.net/weixin_40626699/article/details/89359524</a></p>
 <hr>
-</article>
+
+    </article>
+    
+    <div class="read-nums">
+      <!-- id 将作为查询条件 -->
+      <span id="log/index-2.html" class="leancloud_visitors" data-flag-title="Your Article Title">
+        <em class="post-meta-item-text">浏览量</em>
+        <i class="leancloud-visitors-count"></i>
+      </span>
+    </div>
+    <div class="comments-intro">
+      <h2>评论区</h2>
+      <p>欢迎你留下宝贵的意见，昵称输入QQ号会显示QQ头像哦~</p>
+    </div>
+    <div id="vcomments" class="vcomments"></div>
+    
+  </div>
+  <div class="article-catelogue">
+    <div class="article-catelogue--wrapper">
+      <div class="catelogue catelogue-1">
+        <h3>目录</h3>
         
       </div>
+      
     </div>
-  
-    <div class="log-item">
-      <h2 class="log-title">
-        <span>2022-09-07 22:32:17</span>
-        <span>星期三</span>
-      </h2>
-      <h1 class="log-main-title"><a href="/log/index-1.html">python对省份json的二次编码和二次解码</a></h1>
-      <div class="log-wrapper more" style="max-height: 1000px;">
-        <article class="article-content"><hr>
-<p> #-<em>-coding:utf-8-</em>-<br>#@Time :2022&#x2F;4&#x2F;12 16:07<br>#@Author:shuaichao<br>#@File :.pywith open(‘static&#x2F;mock&#x2F;area&#x2F;110100.json’, ‘r’, encoding&#x3D;’GBK’)as fp:<br>        # json_data &#x3D; json.load(fp)<br>#@Software: PyCharm<br>import io<br>import json<br>import time</p>
-<p>from lxml.builder import unicode</p>
-<p>import utils<br>if <strong>name</strong> &#x3D;&#x3D; ‘<strong>main</strong>‘:</p>
-<pre><code>#  第一次解码，去掉字符串和转义字符
-with open(&#39;static/mock/province.json&#39;, &#39;r&#39;, encoding=&#39;GBK&#39;)as fp:
-    json_data = json.load(fp)
-    f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
-    f.write(json_data)
-    f.close()
-# 第二次解码，转中文
-    with open(&#39;static/mock/province.json&#39;, &#39;r&#39;, encoding=&#39;GBK&#39;)as fp:
-        json_data = json.load(fp)
-        type = json.dumps(json_data, ensure_ascii=False, indent=4, separators=(&#39;,&#39;, &#39;: &#39;))
-        f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
-        f.write(type)
-        f.close()
-        # 获得 省级疫情人数并填入
-        with open(&#39;static/mock/province.json&#39;, &#39;r&#39;, encoding=&#39;GBK&#39;)as fp:
-            json_data = json.load(fp)
-            res = utils.get_province()
-            list_city = []
-            list_num = []
-            for r in res:
-                # print(r[0])
-                # print(r[1])
-                list_city.append(r[0])
-                list_num.append(r[1])
-            list_city_json = []
-            # try:
-            area = json_data[&#39;msg&#39;]
-            for k, v in enumerate(area):
-                # print(v[&#39;province&#39;])
-                list_city_json.append(v[&#39;province&#39;])
-            for k, v in enumerate(list_city_json):
-                area1 = str(v).strip().replace(&quot;市&quot;, &quot;&quot;).replace(&quot;特别行政区&quot;,&quot;&quot;).replace(&quot;回族自治区&quot;,&quot;&quot;).replace(&quot;维吾尔自治区&quot;,&quot;&quot;).replace(&quot;壮族自治区&quot;,&quot;&quot;).replace(&quot;省&quot;,&quot;&quot;).replace(&quot;自治区&quot;,&quot;&quot;)
-                sign_privince = True
-                for m, n in enumerate(list_city):
-                    if area1 == n.strip():
-                        print(n)
-                        json_data[&#39;msg&#39;][k][&#39;num&#39;] = str(list_num[m])
-                        type = json.dumps(json_data, ensure_ascii=False, indent=4, separators=(&#39;,&#39;, &#39;: &#39;))
-                        f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
-                        f.write(type)
-                        f.close()
-                        sign_privince = False
-                    # else:
-                    #     if m==len(list_city)-1:
-                    #         json_data[&#39;msg&#39;][k][&#39;num&#39;] = str(0)
-                    #         type = json.dumps(json_data, ensure_ascii=False, indent=4, separators=(&#39;,&#39;, &#39;: &#39;))
-                    #         f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
-                    #         f.write(type)
-                    #         f.close()
-                if sign_privince:
-                    json_data[&#39;msg&#39;][k][&#39;num&#39;] = str(0)
-                    type = json.dumps(json_data, ensure_ascii=False, indent=4, separators=(&#39;,&#39;, &#39;: &#39;))
-                    f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
-                    f.write(type)
-                    f.close()
-            with open(&#39;static/mock/province.json&#39;, &#39;r&#39;, encoding=&#39;GBK&#39;)as fp:
-                json_data = json.load(fp)
-                type = json.dumps(json_data)
-                type1 = json.dumps(type)
-                f = open(&#39;static/mock/province.json&#39;, &#39;w&#39;)
-                f.write(type1)
-                f.close()
-</code></pre>
-<hr>
-</article>
-        
-          <a href="/log/index-1.html" class="more-title">阅读更多</a> 
-        
-      </div>
-    </div>
-  
+  </div>
 </div>
 
+<script src="/js/prism.js"></script>
+
+<script>
+  // var定义，避免pjax重新进来造成的重复声明错误
+  var config = JSON.parse('{"enable":true,"appId":"Pf8zCXGEH1qsprnWfikVVujL-gzGzoHsz","appKey":"qOqoiUHhH1TGtLRUYURkLRQX","placeholder":"请留下你宝贵的意见吧~","meta":["nick"],"recordIP":true,"visitor":true,"enableQQ":true}')
+  new Valine({
+    el: '#vcomments',
+    appId: config.appId,
+    appKey: config.appKey,
+    placeholder: config.placeholder,
+    meta: config.meta,
+    recordIP: config.recordIP,
+    visitor: config.visitor,
+    enableQQ: config.enableQQ,
+    path: 'log/index-2.html'
+  })
+</script>
+
+
+<script>
+  $(document).on('pjax:complete', function() {
+    const tocs = document.querySelector('.toc')
+    const as = tocs ? tocs.querySelectorAll('a') : []
+    as.forEach(a => {
+      a.addEventListener('click', e => {
+        const href = decodeURIComponent(a.href)
+        href.search(/#(.*)/)
+        const id = RegExp.$1
+        const target = document.querySelector('#' + id)
+        const top = target.offsetTop
+        document.documentElement.scrollTo({
+          top: top - 100,
+          behavior: 'smooth'
+        })
+        e.preventDefault()
+      })
+    })
+  })
+</script> 
 
 </div>
       <div class="main-right-wrapper"><div class="main-right">

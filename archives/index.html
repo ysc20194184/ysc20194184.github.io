@@ -183,7 +183,7 @@
   const ipt = document.querySelector('#search-input')
   const btn = document.querySelector('#search-btn')
   const layer = document.querySelector('#search-layer')
-  const posts = JSON.parse(`[{"title":"Hello World","path":"2022/09/07/hello-world/"}]`)
+  const posts = JSON.parse(`[{"title":"Hello World","path":"2022/09/07/hello-world/"},{"title":"Hello World","path":"2022/09/07/test/"}]`)
   ipt.addEventListener('keyup', e => {
     if (e.key === 'Enter') {
       handleSearch()
@@ -317,7 +317,7 @@
       </h5>
       <p class="main-left--subtitle">
         <span>文章数目：</span>
-        <span>1 篇</span>
+        <span>2 篇</span>
       </p>
       <p class="main-left--subtitle">
         <span>最近动态：</span>
@@ -351,6 +351,13 @@
                                         <li class="archive-list__post">
                                             <div>
                                                 <a href="/2022/09/07/hello-world/">Hello World</a>
+                                                <span>09月07日</span>
+                                            </div>
+                                        </li>
+                                    
+                                        <li class="archive-list__post">
+                                            <div>
+                                                <a href="/2022/09/07/test/">Hello World</a>
                                                 <span>09月07日</span>
                                             </div>
                                         </li>
